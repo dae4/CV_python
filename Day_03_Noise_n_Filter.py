@@ -29,8 +29,8 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()
 # %%
 # Apply Blur & Median Filter
-blur = cv2.Blur(noise_img,(3,3))
-median = cv2.medianBlur(noise_img,3)
+blur = cv2.blur(noise_img,(3,3))
+median = cv2.medianBlur(noise_img,5)
 cv2.imshow("median",median)
 cv2.imshow("blur",blur)
 cv2.imshow("origin",origin)
