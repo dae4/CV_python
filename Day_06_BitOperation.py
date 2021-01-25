@@ -16,6 +16,10 @@ img2gray = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
 ret, mask = cv2.threshold(img2gray,10,255,cv2.THRESH_BINARY)
 mask_inv = cv2.bitwise_not(mask)
 
+#bitwise_and
+# mask 범위 내에서 두개의 array의 비트 and 결과
+# > 비트연산 and 두개의 값이 모두 True일때, True 그렇지 않으면 False
+
 img1_fg = cv2.bitwise_and(img1,img1,mask=mask)
 img2_bg = cv2.bitwise_and(rot,roi,mask=mask_inv)
 
