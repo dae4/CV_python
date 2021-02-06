@@ -49,3 +49,13 @@ plt.xlim([0,256])
 
 plt.show()
 # %%
+# 2D Histogra,
+img = cv2.imread('chicken.jpg')
+## calcHist([image][channel],mask,[bins][range])
+hist = cv2.calcHist([img],[1,2],None,[256,256],[0,256,0,256])
+
+cv2.imshow('Hist',hist)
+
+plt.imshow(hist) #, interpolation='nearest')
+plt.show()
+# %%
