@@ -12,14 +12,28 @@ yMin=json_data[0]['yMin']
 xMax=json_data[0]['xMax']
 yMax=json_data[0]['yMax']
 
-# crop = img[xMin:xMax,0:yMax]
-# cv2.imshow('crop',crop)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows() 
-# %%
 crop = img[0:yMax,xMin:xMax]
 cv2.imwrite("crop.jpg",crop)
 # %%
-from IPython.display import Image
-Image(filename='crop.jpg') 
+from PIL import Image,ImageDraw
+import numpy as np
+
+origin_img=Image.open('crop.jpg')
+
+width,height = origin_img.size
+
+lum_img = Image.new('L', [width,height] , 0)
+draw = ImageDraw.Draw(lum_img)
+draw.pieslice([(0,0), (width,height)], 0, 360, fill = 1, outline = "white")
+img_arr =np.array(origin_img)
+## background
+lum_img_arr =np.array(lum_img)[...,np.newaxis]
+lum_back_arr = (1- lum_img_arr)*255
+lum_back_arr = np.dstack([lum_back_arr,lum_back_arr,lum_back_arr])
+## imgae 
+final_img_arr = img_arr*lum_img_arr
+final_img_arr = final_img_arr+ lum_back_arr
+
+final_img = Image.fromarray(final_img_arr)
+final_img.save('circle.jpg')
 # %%
